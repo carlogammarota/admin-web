@@ -165,7 +165,7 @@
               class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal" />
             <input type="text" placeholder="CONTRASEÑA"
               class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal" />
-            <button class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white">ENTRAR</button>
+            <button class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white" @click="login()">ENTRAR</button>
             <!-- <div class="flex justify-center items-center">
               <span class="w-full border border-black"></span>
               <span class="px-4">Or</span>
@@ -297,21 +297,12 @@ export default {
             this.blogs = data.data
             console.log(this.blogs)
         }).catch(console.log);
-
-    // axios.get('http://localhost:3030/blog')
-    //   .then(response => {
-    //     // handle success
-    //     console.log(response.data.data);
-    //     let blogs = response.data.data;
-    //     this.blogs = blogs;
-
-    //   })
-    //   .catch(error => {
-    //     alert("no pudo traer los blogs")
-    //     // handle error
-    //     console.log(error);
-    //   })
-  }
+  },
+  methods: {
+    login(){
+      console.log('login')
+    }
+  },
 }
 </script>
 <style>
