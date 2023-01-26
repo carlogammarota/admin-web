@@ -130,12 +130,11 @@
           <h1 class="lg:text-3xl xl:text-5xl xl:leading-snug font-extrabold">
             Administra tu sitio desde nuestro Admin 1.0  
           </h1>
-          <p class="text-lg">No tiene una cuenta</p>
+          <p class="text-lg">No tienes una cuenta ?</p>
           <button
-            class="inline-block flex-none px-4 py-3 border-2 rounded-lg font-medium border-black bg-black text-white">Create
-            account here</button>
+            class="inline-block flex-none px-4 py-3 border-2 rounded-lg font-medium border-black bg-black text-white">CREAR NUEVA CUENTA</button>
         </div>
-        <p class="font-medium">© 2022 Company</p>
+        <p class="font-medium">© 2023 Aura Dev</p>
       </div>
 
       <!-- Login -->
@@ -155,16 +154,16 @@
         <!-- Login box -->
         <div class="flex flex-1 flex-col  justify-center space-y-5 max-w-md">
           <div class="flex flex-col space-y-2 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold">LOGIN</h2>
-           
+            <h2 class="text-SM font-bold">AURA DEV</h2>
+            <h2 class="text-5xl font-bold">LOGIN</h2>
             <img src="@/assets/usuario.png" class="w-32 m-auto" alt="">
-            <p class="text-md md:text-xl">date de alta para acceder al administrador</p>
+            <p class="text-md md:text-xl uppercase">date de alta para acceder al administrador</p>
             
           </div>
           <div class="flex flex-col max-w-md space-y-5">
-            <input type="text" placeholder="nombre de usuario"
+            <input type="text" placeholder="NOMBRE DE USUARIO"
               class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal" />
-            <input type="text" placeholder="contraseña"
+            <input type="text" placeholder="CONTRASEÑA"
               class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal" />
             <button class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white">ENTRAR</button>
             <!-- <div class="flex justify-center items-center">
