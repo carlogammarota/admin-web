@@ -1,8 +1,8 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Login</router-link> |
     <router-link to="/about">Crear Cuenta</router-link>
-  </nav>
+  </nav> -->
   <!-- <router-view/> -->
   <router-view/>
 </template>
@@ -17,7 +17,7 @@
 }
 
 nav {
-  padding: 30px;
+  /* padding: 30px; */
 }
 
 nav a {
