@@ -207,10 +207,10 @@ export default {
 
       axios.post('http://localhost:3030/authentication', {
         "strategy": "local",
-        // "email": this.email,
-        // "password": this.password
-        "email": "grilfran90@gmail.com",
-        "password": "stuart2023"
+        "email": this.email,
+        "password": this.password
+        // "email": "grilfran90@gmail.com",
+        // "password": "stuart2023"
       })
       .then(response => {
         console.log('Datos Correctos')
