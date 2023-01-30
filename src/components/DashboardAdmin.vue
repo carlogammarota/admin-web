@@ -1,5 +1,7 @@
 <template>
     <div>
+
+       
             <!-- pop up Delete -->
     <div  v-if="modalStatus" id="popup-modal" tabindex="-1" class="bg-black fixed top-0 left-0 right-0 z-50 p-4 overflow-y-auto md:inset-0 h-modal md:h-full h-screen w-full">
         <div class="relative w-full h-full max-w-md md:h-auto m-auto mt-24">
@@ -24,7 +26,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- MODAL EDITAR -->
     <div  v-if="modalEdit" id="popup-modal" tabindex="-1" class="bg-black fixed top-0 left-0 right-0 z-50 p-4 overflow-y-auto md:inset-0 h-modal md:h-full h-screen w-full">
         <div class="relative w-full h-full max-w-md md:h-auto m-auto mt-24">
@@ -214,6 +216,7 @@
 
 
 
+
     <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
         
@@ -255,6 +258,9 @@
             </div>
             </div>
         </div>
+
+        <!-- Subir Imagen -->
+    <UploadImg/>
     <!-- Statistics Cards -->
     <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
     <div class="spinner my-4" v-if="loader"></div>
@@ -893,11 +899,14 @@
     </div>
     <!-- ./External resources -->
     </div>
+
     </div>
     </div>
 </template>
 <script>
-const feathers = require("@/plugins/feathers.js")
+const feathers = require("@/plugins/feathers.js");
+// import UploadImg from '@/components/UploadImg'; 
+import UploadImg from '@/components/UploadImg.vue'
 export default {
     data() {
         return {
@@ -913,6 +922,9 @@ export default {
 
 
         }
+    },
+    components: {
+        UploadImg
     },
     methods: {
         logout(){
@@ -985,7 +997,8 @@ export default {
                     console.log('se actualizo correctamente', data)
                 })
                 .catch(console.log)
-        }
+        },
+
         
     },
     mounted() {
