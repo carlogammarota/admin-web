@@ -260,7 +260,7 @@
         </div>
 
         <!-- Subir Imagen -->
-    <UploadImg/>
+    
     <!-- Statistics Cards -->
     <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
     <div class="spinner my-4" v-if="loader"></div>
@@ -927,6 +927,9 @@ export default {
         UploadImg
     },
     methods: {
+        imgUrl(data){
+            console.log('url', data)
+        },
         logout(){
             this.$emit('logout')
         },

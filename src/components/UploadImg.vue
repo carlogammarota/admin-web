@@ -1,6 +1,7 @@
 <template>
     <div class="uw">
         Subir una imagen
+        <button @click="test()">test</button>
         {{ url }}
         <button v-on:click="open" id="upload_widget" class="cloudinary-button">
             Upload files
@@ -53,15 +54,16 @@
         // theme: "purple", //change to a purple theme
         },
         (error, result) => {
-        if (!error && result && result.event === "success") {
-            console.log("Done! Here is the image info: ", result);
-            this.url = result.info.secure_url
-            // document
-            // .getElementById("uploadedimage")
-            // .setAttribute("src", result.info.secure_url);
-        }
+            if (!error && result && result.event === "success") {
+                console.log("Done! Here is the image info: ", result);
+                this.url = result.info.secure_url
+                this.$emit('urllink', result.info.secure_url)
+            }
         }
   );
+  
+    },
+    methods: {
     },
     props: {
       msg: String,
