@@ -168,7 +168,6 @@
   </body>
   <!-- <br> -->
   <dashboard-admin v-on:logout="logout()" v-if="token" />
-  <button @click="logout()">LOGOUT</button>
   </div> 
 </template>
 
