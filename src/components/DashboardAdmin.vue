@@ -39,13 +39,32 @@
                 <div class="p-6">
                    <h3 class="mb-5 text-lg font-normal ">Editar Blog</h3>
                    {{ edit_id }}
+                   <UploadImg />
                    <br>
                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white float-left">Titulo</label>
                     <input v-model="titulo" type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                     <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white float-left mt-4">Descripcion</label>
                     <textarea id="message" v-model="descripcion" rows="4" class="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
-
+                   
+                    <!--Vista Previa-->
+                    <div>
+                        <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
+                    <div class="relative h-10 w-10">
+                        <img
+                        class="h-full w-full rounded-full object-cover object-center"
+                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                        />
+                        <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
+                    </div>
+                    <div class="text-sm">
+                        <div class="font-medium text-gray-700">{{titulo}}</div>
+                        <div class="text-gray-400">{{descripcion}}</div>
+                    </div>
+                    </th>
+                    </div>
+                              
 
                     <button  @click="guardarEdit()" type="button" class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Guardar

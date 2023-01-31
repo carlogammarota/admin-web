@@ -1,7 +1,7 @@
 <template>
     <div class="uw">
         Subir una imagen
-        <button @click="test()">test</button>
+        <!-- <button @click="test()">test</button> -->
         {{ url }}
         <button v-on:click="open" id="upload_widget" class="cloudinary-button">
             Upload files
