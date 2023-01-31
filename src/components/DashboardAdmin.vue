@@ -1,7 +1,57 @@
 <template>
     <div>
 
-       
+        <!-- CREATE BLOG -->
+    <div  v-if="modalCreate" id="popup-modal" tabindex="-1" class="bg-black fixed top-0 left-0 right-0 z-50 p-4 overflow-y-auto md:inset-0 h-modal md:h-full h-screen w-full">
+        <div class="relative w-full h-full max-w-md md:h-auto m-auto mt-24">
+            <div class="relative bg-gray-100 rounded-lg shadow dark:bg-gray-700">
+                <button type="button" @click="HiddenModalCreate()" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                
+                <div class="p-6">
+                   <h3 class="mb-5 text-lg font-normal ">Crear Nuevo Blog</h3>
+                   <UploadImg @urllink="imgUrl"/>
+                   <br>
+                   <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white float-left">Titulo</label>
+                    <input v-model="titulo" type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white float-left mt-4">Descripcion</label>
+                    <textarea id="message" v-model="descripcion" rows="4" class="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+                   
+                    <!--Vista Previa-->
+                    <div>
+                        <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
+                    <div class="relative h-10 w-10">
+                        <img
+                        class="h-full w-full rounded-full object-cover object-center"
+                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                        />
+                        <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
+                    </div>
+                    <div class="text-sm">
+                        <div class="font-medium text-gray-700">{{titulo}}</div>
+                        <div class="text-gray-400">{{descripcion}}</div>
+                    </div>
+                    </th>
+                    </div>
+                              
+
+                    <button  @click="crearBlog()" type="button" class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        Crear
+                    </button>
+
+                    <button data-modal-hide="popup-modal" @click="HiddenModalCreate()" 
+                    type="button" 
+                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    Cancelar</button>
+                </div> 
+            </div>
+        </div>
+    </div>
+
             <!-- pop up Delete -->
     <div  v-if="modalStatus" id="popup-modal" tabindex="-1" class="bg-black fixed top-0 left-0 right-0 z-50 p-4 overflow-y-auto md:inset-0 h-modal md:h-full h-screen w-full">
         <div class="relative w-full h-full max-w-md md:h-auto m-auto mt-24">
@@ -39,14 +89,16 @@
                 <div class="p-6">
                    <h3 class="mb-5 text-lg font-normal ">Editar Blog</h3>
                    {{ edit_id }}
-                   <UploadImg />
+                   
                    <br>
                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white float-left">Titulo</label>
                     <input v-model="titulo" type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                     <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white float-left mt-4">Descripcion</label>
                     <textarea id="message" v-model="descripcion" rows="4" class="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
-                   
+                    <img class="m-auto my-4" :src="imgLinkUrl" alt="">
+                    <UploadImg @urllink="imgUrl"/>
+
                     <!--Vista Previa-->
                     <div>
                         <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
@@ -58,10 +110,13 @@
                         />
                         <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
                     </div>
+                    
                     <div class="text-sm">
                         <div class="font-medium text-gray-700">{{titulo}}</div>
                         <div class="text-gray-400">{{descripcion}}</div>
                     </div>
+
+                    
                     </th>
                     </div>
                               
@@ -279,7 +334,8 @@
         </div>
 
         <!-- Subir Imagen -->
-    
+        <!-- <button class="btn ">Crear Blog</button> -->
+        <button type="button" @click="ShowModalCreate()" class="uppercase text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear Evento</button>
     <!-- Statistics Cards -->
     <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
     <div class="spinner my-4" v-if="loader"></div>
@@ -288,7 +344,7 @@
       <tr>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">State</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Role</th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">IMG</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Team</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
       </tr>
@@ -318,7 +374,9 @@
             Active
           </span>
         </td>
-        <td class="px-6 py-4">Product Designer</td>
+        <td class="px-6 py-4">
+            <img :src="item.img" alt="">
+        </td>
         <td class="px-6 py-4">
           <div class="flex gap-2">
             <span
@@ -937,7 +995,9 @@ export default {
             delete_id: '',
             edit_id: '',
             titulo: '',
-            descripcion: ''
+            descripcion: '',
+            imgLinkUrl: '',
+            modalCreate: ''
 
 
         }
@@ -946,11 +1006,26 @@ export default {
         UploadImg
     },
     methods: {
-        imgUrl(data){
-            console.log('url', data)
+        imgUrl(url){
+            console.log('url', url)
+            this.imgLinkUrl = url
         },
         logout(){
             this.$emit('logout')
+        },
+        crearBlog(){
+            feathers.default.blog.create({
+                titulo: this.titulo,
+                descripcion: this.descripcion,
+                img: this.imgLinkUrl
+            }).then(data => {
+                console.log("Creado!", data)
+                this.modalCreate = false;
+                this.getBlogs();
+            }).catch(err => {
+                console.log("Error al crear evento!", err)
+                this.modalCreate = false;
+            });
         },
         deleteItem(){
             feathers.default.blog.remove(this.delete_id).then(data => {
@@ -994,7 +1069,12 @@ export default {
         },
         HiddenModalEdit(){
             this.modalEdit = false;
-
+        },
+        ShowModalCreate(){
+            this.modalCreate = true;
+        },
+        HiddenModalCreate(){
+            this.modalCreate = false;
         },
         getBlogId(_id){
             feathers.default.blog
@@ -1004,6 +1084,7 @@ export default {
                     console.log('BLOG UNICO', data);
                     this.titulo = data.titulo;
                     this.descripcion = data.descripcion;
+                    this.imgLinkUrl = data.img
                 })
                 .catch(console.log)
         },
