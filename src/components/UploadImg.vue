@@ -1,13 +1,16 @@
 <template>
     <div class="uw">
+        <div v-if="url == ''">
+            <img :src="url" alt="">
+        </div>
         Subir una imagen
         <!-- <button @click="test()">test</button> -->
-        {{ url }}
+        <!-- {{ url }} -->
         <button v-on:click="open" id="upload_widget" class="cloudinary-button">
             Upload files
         </button>
         <br>
-        <img :src="url" alt="">
+        
     </div>
   </template>
   
