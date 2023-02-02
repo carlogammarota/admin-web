@@ -17,7 +17,7 @@
   
 <!-- {{ token }} -->
   <!-- {{ Login }} -->
-  <body class="bg-white" v-if="!token">
+  <body class="bg-white" v-if="!getToken">
 
     <!-- Example -->
     <div class="flex min-h-screen">
@@ -167,7 +167,8 @@
     <!-- Example -->
   </body>
   <!-- <br> -->
-  <dashboard-admin v-on:logout="logout()" v-if="token" />
+  <dashboard-admin v-on:logout="logout()" v-if="getToken" />
+  {{ getToken }}
   </div> 
 </template>
 
@@ -176,6 +177,8 @@
 // import feathers from '@/plugins/feathers.js'
 const feathers = require("@/plugins/feathers.js")
 import DashboardAdmin from '@/components/DashboardAdmin.vue'
+import { mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import axios from 'axios'
 export default {
   name: 'HomeView',
@@ -193,49 +196,44 @@ export default {
     }
   },
   async mounted () {
-    if (localStorage.token) {
-      this.token = localStorage.token;
-    };
+    // if (localStorage.token) {
+    //   this.token = localStorage.token;
+    // };
 
   },
   methods: {
+    ...mapActions([
+      'authentication',
+      'logoutStore'
+      // map `this.increment()` to `this.$store.dispatch('increment')`
+    ]),
     login(){
+      
       console.log('login');
       console.log(this.user);
       console.log(this.password);
 
-      axios.post('http://localhost:3030/authentication', {
-        "strategy": "local",
-        "email": this.email,
-        "password": this.password
-        // "email": "grilfran90@gmail.com",
-        // "password": "stuart2023"
-      })
-      .then(response => {
-        console.log('Datos Correctos')
-        console.log('respuesta', response.data);
-        this.token = response.data.accessToken;
-        this.user = response.data.user;
-        console.log('user', this.user);
-        
-        //Guardamos el token en localstor age para que cuando se refresque la pesta
-        localStorage.token = response.data.accessToken;
-        // this.loginStatus = true;
-      })
-      .catch(error => {
-        console.log('Datos Incorrectos')
-        console.log(error);
+      this.authentication({
+        email: this.email, password: this.password
       });
 
+      console.log('getToken', this.getToken);
     },
     logout(){
-      console.log('logout');
-      this.token = null;
+      // console.log('logout');
+      // this.token = null;
 
       //borramos el token tambien del localStorage
       localStorage.token = null;
+
+      this.logoutStore()
     }
   },
+  computed: {
+    ...mapGetters([
+        'getToken',
+    ])
+  }
 }
 </script>
 <style>

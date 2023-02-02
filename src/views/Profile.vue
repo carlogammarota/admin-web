@@ -57,12 +57,16 @@ import Sidebar from '@/components/Sidebar.vue'
 import store from '@/store/index'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
     components: {
         Sidebar,
         Header
     },
     mounted() {
+
+         this.authentication(3000)
+        // store.dispatch('authentication',3000)
 
         //esta es una forma de escribir en el store
         // store.commit('changeCount', 10)
@@ -84,6 +88,9 @@ export default {
     methods: {
         ...mapMutations([
             'changeCount', // map `this.increment()` to `this.$store.commit('increment')`
+        ]),
+        ...mapActions([
+            'authentication', // map `this.increment()` to `this.$store.dispatch('increment')`
         ]),
     },
     computed: {
