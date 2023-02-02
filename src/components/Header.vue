@@ -79,11 +79,17 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
     methods: {
         logout(){
-            this.$emit('logout')
-        }
+            this.logoutState();
+            
+        },
+        ...mapActions({
+            // authentication: 'auth/authentication',
+            logoutState: 'auth/logoutStore',
+        }),
     }
 }
 </script>

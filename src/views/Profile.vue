@@ -55,6 +55,7 @@
 import Header from '@/components/Header.vue'
 import Sidebar from '@/components/Sidebar.vue'
 import store from '@/store/index'
+
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -64,39 +65,24 @@ export default {
         Header
     },
     mounted() {
-
-         this.authentication(3000)
-        // store.dispatch('authentication',3000)
-
-        //esta es una forma de escribir en el store
-        // store.commit('changeCount', 10)
-
-        //esta es otra manera de escribir en el store
-        console.log('count con mutation', this.changeCount(100))
-
-
-
-        // alert('test')
-        //esta es una de las formas de hacer un get al store
-        // console.log('count', store.getters.getCount);
-        
-
-        //esta es otra forma de traer data del store
         console.log('getCount', this.getCount)
-        
     },
     methods: {
-        ...mapMutations([
-            'changeCount', // map `this.increment()` to `this.$store.commit('increment')`
-        ]),
-        ...mapActions([
-            'authentication', // map `this.increment()` to `this.$store.dispatch('increment')`
-        ]),
+        ...mapMutations({
+            changeCount: 'auth/changeCount',
+        }),
+        ...mapActions(
+            {
+                authentication: 'auth/authentication'
+            }
+        ),
     },
     computed: {
-        ...mapGetters([
-            'getCount',
-        ])
+        ...mapGetters(
+            {
+                getCount: 'auth/getCount'
+            }
+        )
     }
 }
 </script>

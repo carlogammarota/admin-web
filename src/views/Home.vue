@@ -202,11 +202,16 @@ export default {
 
   },
   methods: {
-    ...mapActions([
-      'authentication',
-      'logoutStore'
-      // map `this.increment()` to `this.$store.dispatch('increment')`
-    ]),
+    // ...mapActions([
+    //   'auth/authentication',
+      
+    //   'auth/logoutStore'
+    //   // map `this.increment()` to `this.$store.dispatch('increment')`
+    // ]),
+    ...mapActions({
+      authentication: 'auth/authentication',
+      logout: 'auth/logoutStore',
+    }),
     login(){
       
       console.log('login');
@@ -224,15 +229,19 @@ export default {
       // this.token = null;
 
       //borramos el token tambien del localStorage
-      localStorage.token = null;
+      
+      if (localStorage.token) {
+        localStorage.token = null;
+      }
 
-      this.logoutStore()
+      this.logout()
     }
   },
   computed: {
-    ...mapGetters([
-        'getToken',
-    ])
+    ...mapGetters({
+      getToken:'auth/getToken'
+    }
+    )
   }
 }
 </script>
