@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from "@/router";
-
+import { notify } from "@kyvg/vue3-notification";
 export default {
     namespaced: true,
 
@@ -53,6 +53,36 @@ export default {
                 
                 commit('TOKEN_POST', response.data.accessToken);
                 commit('USER_POST', response.data.user);
+
+                notify({
+                    // (optional)
+                    // Name of the notification holder
+                    // group: 'foo',
+                
+                    // (optional)
+                    // Title (will be wrapped in div.notification-title)
+                    title: 'Success!',
+                
+                    // Content (will be wrapped in div.notification-content)
+                    text:'Bienvenido ' + response.data.user.nombre,
+                
+                    // (optional)
+                    // Class that will be assigned to the notification
+                    type: 'success',
+                
+                    // (optional, override)
+                    // Time (in ms) to keep the notification on screen
+                    duration: 10000,
+                
+                    // (optional, override)
+                    // Time (in ms) to show / hide notifications
+                    speed: 1000,
+                
+                    // (optional)
+                    // Data object that can be used in your template
+                    // data: {}
+                  })
+
                 // localStorage.token = response.data.accessToken;
                 // localStorage.user = response.data.user;
 
@@ -72,6 +102,36 @@ export default {
             .catch(error => {
                 console.log('Datos Incorrectos')
                 console.log(error);
+                // simple
+                notify({
+                    // (optional)
+                    // Name of the notification holder
+                    // group: 'foo',
+                
+                    // (optional)
+                    // Title (will be wrapped in div.notification-title)
+                    title: 'ERROR!',
+                
+                    // Content (will be wrapped in div.notification-content)
+                    text: error.message,
+                
+                    // (optional)
+                    // Class that will be assigned to the notification
+                    type: 'error',
+                
+                    // (optional, override)
+                    // Time (in ms) to keep the notification on screen
+                    duration: 10000,
+                
+                    // (optional, override)
+                    // Time (in ms) to show / hide notifications
+                    speed: 1000,
+                
+                    // (optional)
+                    // Data object that can be used in your template
+                    // data: {}
+                  })
+
             });
     
         },
@@ -82,11 +142,11 @@ export default {
             // localStorage.user = null;
             router.push('/');
         },
-        // postUser({ commit, state }, data) {
-        //     console.log('postUser', data)
-        //     commit('TOKEN_POST', data);
-        //     // router.push('/');
-        // },
+        postUser({ commit, state }, data) {
+            //  console.log('postUser', data)
+             commit('USER_POST', data);
+             // router.push('/');
+        },
         postLocalStorageToken({ commit, state }, data) {
             // console.log('postLocalStorageToken', data.token)
             // if (localStorage.token ) {

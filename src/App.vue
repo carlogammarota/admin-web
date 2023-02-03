@@ -4,10 +4,12 @@
     <router-link to="/about">Crear Cuenta</router-link>
   </nav> -->
   <!-- <router-view/> -->
+  <notifications />
   <router-view/>
 </template>
 <script>
 import { mapActions } from 'vuex'
+
 export default {
   async mounted () {
     // if (localStorage.token) {

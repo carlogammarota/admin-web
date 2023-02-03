@@ -11,6 +11,7 @@
                 </button>
                 
                 <div class="p-6">
+                    <!-- {{ getUser }} -->
                    <h3 class="mb-5 text-lg font-normal ">Crear Nuevo Blog</h3>
                    <UploadImg @urllink="imgUrl"/>
                    <br>
@@ -88,7 +89,7 @@
                 
                 <div class="p-6">
                    <h3 class="mb-5 text-lg font-normal ">Editar Blog</h3>
-                   {{ edit_id }}
+                   <!-- {{ edit_id }} -->
                    
                    <br>
                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white float-left">Titulo</label>
@@ -198,29 +199,50 @@
     <thead class="bg-gray-50">
       <tr>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Titulo</th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Descripcion</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">State</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">IMG</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Team</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">ACTIONSX</th>
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-100 border-t border-gray-100">
       <tr class="hover:bg-gray-50" v-for="item in blogs" :key="item.id">
-        {{ item._id }}
+        <!-- {{ item._id }} -->
+        <!-- {{item.creador}} -->
         <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
           <div class="relative h-10 w-10">
             <img
               class="h-full w-full rounded-full object-cover object-center"
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              :src="item.creador.img"
+              v-if="item.creador.img"
               alt=""
             />
             <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
           </div>
           <div class="text-sm">
-            <div class="font-medium text-gray-700">{{item.titulo}}</div>
-            <div class="text-gray-400">{{item.descripcion}}</div>
+            <div class="font-medium text-gray-700">{{item.creador.nombre}}</div>
+            <!-- <div class="text-gray-400">{{item.creador.role}}</div> -->
+            <div class="text-gray-400">
+                <span
+                class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
+                >
+                {{item.creador.role}}
+                </span>    
+            </div>
+            
+
+            <!-- <div class="font-medium text-gray-700">{{item.titulo}}</div>
+            <div class="text-gray-400">{{item.descripcion}}</div> -->
           </div>
         </th>
+        <td class="px-6 py-4 text-black">
+            {{ item.titulo }}
+        </td>
+        <td class="px-6 py-4 text-black">
+            {{ item.descripcion }}
+        </td>
         <td class="px-6 py-4">
           <span
             class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
@@ -842,6 +864,7 @@ const feathers = require("@/plugins/feathers.js");
 import UploadImg from '@/components/UploadImg.vue'
 import Sidebar from '@/components/Sidebar.vue'
 import Header from '@/components/Header.vue'
+import { mapGetters } from 'vuex';
 export default {
     data() {
         return {
@@ -855,7 +878,10 @@ export default {
             titulo: '',
             descripcion: '',
             imgLinkUrl: '',
-            modalCreate: ''
+            modalCreate: '',
+            config: {
+                headers: { Authorization: `Bearer ` + this.getToken }
+            },
 
 
         }
@@ -874,11 +900,17 @@ export default {
             this.$emit('logout')
         },
         crearBlog(){
+            const config = {
+    // headers: { Authorization: `Bearer ` + localStorage.token }
+    headers: { Authorization: `Bearer ` + this.getToken }
+};
             feathers.default.blog.create({
                 titulo: this.titulo,
                 descripcion: this.descripcion,
-                img: this.imgLinkUrl
-            }).then(data => {
+                img: this.imgLinkUrl,
+                creador: this.getUser
+                //tambien le vamos a pasar el _id de creador del blog
+            }, config).then(data => {
                 console.log("Creado!", data)
                 this.modalCreate = false;
                 this.getBlogs();
@@ -888,7 +920,11 @@ export default {
             });
         },
         deleteItem(){
-            feathers.default.blog.remove(this.delete_id).then(data => {
+            const config = {
+    // headers: { Authorization: `Bearer ` + localStorage.token }
+    headers: { Authorization: `Bearer ` + this.getToken }
+};
+            feathers.default.blog.remove(this.delete_id, config).then(data => {
                 this.getBlogs();
                 console.log('Eliminado', data)
                 this.hiddenModal()
@@ -953,12 +989,17 @@ export default {
                 .catch(console.log)
         },
         guardarEdit(){
+            const config = {
+    // headers: { Authorization: `Bearer ` + localStorage.token }
+    headers: { Authorization: `Bearer ` + this.getToken }
+};
             feathers.default.blog
-                .update(this.edit_id, {
+                .patch(this.edit_id, {
                     titulo: this.titulo,
                     descripcion: this.descripcion,
-                    img: this.imgLinkUrl
-                } ) 
+                    img: this.imgLinkUrl,
+                    creador: this.getUser
+                }, config) 
                 .then((data) => {
                     this.HiddenModalEdit();
                     this.getBlogs();
@@ -972,6 +1013,14 @@ export default {
     mounted() {
         this.getBlogs();
     },
+    computed: {
+      ...mapGetters({
+        getUser:'auth/getUser',
+        getToken:'auth/getToken'
+      }
+    )
+  }
+  
 }
 </script>
 <style>
