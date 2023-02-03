@@ -6,7 +6,23 @@
   <!-- <router-view/> -->
   <router-view/>
 </template>
-
+<script>
+import { mapActions } from 'vuex'
+export default {
+  async mounted () {
+    // if (localStorage.token) {
+    //    this.postLocalStorageToken({token: localStorage.token})
+    //    this.postLocalStorageToken({token: localStorage.token})
+    // };
+    this.postLocalStorageToken()
+  },
+  methods: {
+    ...mapActions({
+      postLocalStorageToken: 'auth/postLocalStorageToken',
+    }),
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

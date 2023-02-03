@@ -196,20 +196,18 @@ export default {
     }
   },
   async mounted () {
-    // if (localStorage.token) {
-    //   this.token = localStorage.token;
-    // };
+    if (localStorage.token) {
+       this.postLocalStorageToken(localStorage.token)
+    };
+
+
+    
 
   },
   methods: {
-    // ...mapActions([
-    //   'auth/authentication',
-      
-    //   'auth/logoutStore'
-    //   // map `this.increment()` to `this.$store.dispatch('increment')`
-    // ]),
     ...mapActions({
       authentication: 'auth/authentication',
+      postLocalStorageToken: 'auth/postLocalStorageToken',
       logout: 'auth/logoutStore',
     }),
     login(){
@@ -225,14 +223,10 @@ export default {
       console.log('getToken', this.getToken);
     },
     logout(){
-      // console.log('logout');
-      // this.token = null;
 
       //borramos el token tambien del localStorage
       
-      if (localStorage.token) {
-        localStorage.token = null;
-      }
+     
 
       this.logout()
     }
