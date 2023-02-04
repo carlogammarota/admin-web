@@ -4,6 +4,7 @@
     <router-link to="/about">Crear Cuenta</router-link>
   </nav> -->
   <!-- <router-view/> -->
+  <!--PUSHEAR-->
   <notifications />
   <router-view/>
 </template>
