@@ -11,6 +11,7 @@ app.configure(restClient.axios(axios));
 
 const blog = app.service('blog');
 const users = app.service('users');
+const myBlogs = app.service('my-blogs');
 // const eventosNoAprobados = app.service('eventos-pendientes');
 
-export default {blog,users};
+export default {blog,users, myBlogs};
