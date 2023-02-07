@@ -2,22 +2,31 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
 import MyBlogs from '../views/MyBlogs.vue'
+import Login from '../views/Login.vue'
 
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    // meta: { requiresAuth: true },
   },
   {
     path: '/profile',
     name: 'profile',
-    component: Profile
+    component: Profile,
+    // meta: { requiresAuth: true },
   },
   {
     path: '/myblogs',
     name: 'myblogs',
-    component: MyBlogs
+    component: MyBlogs,
+    // meta: { requiresAuth: true },
   },
   {
     path: '/about',
@@ -35,3 +44,20 @@ const router = createRouter({
 })
 
 export default router
+
+
+
+// ejemplo de como usar checkAuth midleware
+/*
+const router = new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/protected',
+      component: () => import('./views/Protected.vue'),
+      beforeEnter: checkAuth
+    },
+    // ...
+  ]
+})
+*/

@@ -4,6 +4,9 @@ import createPersistedState from "vuex-persistedstate";
 // import * as moduleA from '@/store/modules/auth.js'
 import auth from './modules/auth.js'
 export default createStore({
+  state: {
+    count:30000
+  },
   // state: {
   //   count: 30,
   //   token: ''

@@ -6,7 +6,7 @@ export default {
 
     state: {
         count: 30,
-        token: '',
+        token: null,
         user: {}
     },
     getters: {
