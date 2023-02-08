@@ -29,7 +29,7 @@ export default {
         TOKEN_POST (state, data) {
             state.token = data;
         },
-        remoteToken(state){
+        REMOVE_TOKEN(state){
             state.token = null;
             state.user = null;
         },
@@ -43,6 +43,7 @@ export default {
         authentication({ commit, state }, data) {
         // console.log('authentication', data);
             axios.post('http://localhost:3030/authentication', {
+            // axios.post('http://64.227.76.217:3030/authentication', {
                 "strategy": "local",
                 "email": data.email,
                 "password": data.password
@@ -53,6 +54,10 @@ export default {
                 
                 commit('TOKEN_POST', response.data.accessToken);
                 commit('USER_POST', response.data.user);
+
+                // this.$router.push({ name: 'routename' })
+                // router.push('/');
+                router.push('/');
 
                 notify({
                     // (optional)
@@ -72,7 +77,7 @@ export default {
                 
                     // (optional, override)
                     // Time (in ms) to keep the notification on screen
-                    duration: 10000,
+                    duration: 2000,
                 
                     // (optional, override)
                     // Time (in ms) to show / hide notifications
@@ -137,10 +142,10 @@ export default {
         },
         logoutStore({ commit, state }, data) {
             console.log('logoutStore')
-            commit('remoteToken');
+            commit('REMOVE_TOKEN');
             // localStorage.token = null;
             // localStorage.user = null;
-            router.push('/');
+            router.push('/login');
         },
         postUser({ commit, state }, data) {
             //  console.log('postUser', data)

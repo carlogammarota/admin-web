@@ -4,6 +4,7 @@ const rest = require('@feathersjs/rest-client');
 const app = feathers();
 
 const restClient = rest('http://localhost:3030')
+// const restClient = rest('http://64.227.76.217')
 // const restClient = rest('https://api-eventos.yendo.site')
 const axios = require('axios');
 

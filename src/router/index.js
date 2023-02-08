@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import DashboardAdmin from '../views/DashboardAdmin.vue'
 import Profile from '../views/Profile.vue'
 import MyBlogs from '../views/MyBlogs.vue'
 import Login from '../views/Login.vue'
 
 const routes = [
+  
   {
     path: '/login',
     name: 'login',
@@ -13,7 +14,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: DashboardAdmin,
     // meta: { requiresAuth: true },
   },
   {
@@ -39,7 +40,10 @@ const routes = [
 ]
 
 const router = createRouter({
+  // history: createWebHistory(process.env.BASE_URL),
+  // history: 'history',
   history: createWebHistory(process.env.BASE_URL),
+  mode: 'history',
   routes
 })
 
