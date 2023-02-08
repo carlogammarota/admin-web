@@ -167,7 +167,7 @@
     <!-- Example -->
   </body>
   <!-- <br> -->
-  <dashboard-admin v-on:logout="logout()" v-if="getToken" />
+  <!-- <dashboard-admin v-on:logout="logout()" v-if="getToken" /> -->
   {{ getToken }}
   </div> 
 </template>
@@ -176,14 +176,14 @@
 // @ is an alias to /src
 // import feathers from '@/plugins/feathers.js'
 const feathers = require("@/plugins/feathers.js")
-import DashboardAdmin from '@/components/DashboardAdmin.vue'
+// import DashboardAdmin from '@/components/DashboardAdmin.vue'
 import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
 import axios from 'axios'
 export default {
   name: 'HomeView',
   components: {
-    DashboardAdmin
+    // DashboardAdmin
   },
   data() {
     return {

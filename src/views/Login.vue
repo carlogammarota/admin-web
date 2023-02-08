@@ -121,7 +121,7 @@
     </div>
 </template>
 <script>
-import DashboardAdmin from '@/components/DashboardAdmin.vue'
+// import DashboardAdmin from '@/components/DashboardAdmin.vue'
 import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
 export default {

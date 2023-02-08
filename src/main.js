@@ -29,6 +29,10 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+// array.forEach(item => {
+  
+// });
+
 //   const requireAuth = (to, from, next) => {
 //     if (!store.state.auth.token && !store.state.auth.user) {
 //       if (to.path !== '/login') {
